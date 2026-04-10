@@ -9,7 +9,7 @@ from astrbot.core import Plugin
 # 插件主文件，用于标识插件入口
 # AstrBot会自动加载plugins目录下的插件
 
-class WecomPlatformPlugin(Plugin):
+class Plugin(Plugin):
     """
     企业微信平台适配器插件
     """
@@ -17,6 +17,6 @@ class WecomPlatformPlugin(Plugin):
         super().__init__(name="wecom-platform", description="企业微信平台适配器")
 
 # 导出插件实例
-plugin = WecomPlatformPlugin()
+plugin = Plugin()
 
 __all__ = ['plugin']
