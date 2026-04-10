@@ -78,12 +78,24 @@ class WecomPlatformAdapter(Platform):
         else:
             abm.type = MessageType.FRIEND_MESSAGE
         
-        # 消息内容
-        abm.message_str = data.get('content', '')
+        # 处理事件消息
+        if data.get('MsgType') == 'event':
+            event_type = data.get('Event', '')
+            if event_type == 'LOCATION':
+                # 构造位置信息内容
+                latitude = data.get('Latitude', '0')
+                longitude = data.get('Longitude', '0')
+                precision = data.get('Precision', '0')
+                abm.message_str = f"LOCATION事件: 纬度={latitude}, 经度={longitude}, 精度={precision}米"
+            else:
+                abm.message_str = f"事件类型: {event_type}"
+        else:
+            # 普通消息内容
+            abm.message_str = data.get('content', '')
         
         # 发送者信息
         abm.sender = MessageMember(
-            user_id=data.get('userid', ''),
+            user_id=data.get('FromUserName', data.get('userid', '')),
             nickname=data.get('username', '')
         )
         
@@ -94,13 +106,13 @@ class WecomPlatformAdapter(Platform):
         abm.raw_message = data
         
         # 机器人 ID
-        abm.self_id = data.get('bot_id', self.config.get('agent_id', ''))
+        abm.self_id = data.get('bot_id', data.get('AgentID', self.config.get('agent_id', '')))
         
         # 会话 ID
-        abm.session_id = data.get('userid', '')
+        abm.session_id = data.get('FromUserName', data.get('userid', ''))
         
         # 消息 ID
-        abm.message_id = data.get('message_id', '')
+        abm.message_id = data.get('message_id', str(data.get('CreateTime', '')))
         
         return abm
     
