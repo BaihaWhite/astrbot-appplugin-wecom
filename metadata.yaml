@@ -1,0 +1,41 @@
+# 插件元数据
+name: "wecom-platform-adapter"
+display_name: "企业微信平台适配器"
+version: "1.0.0"
+description: "AstrBot 企业微信平台适配器，支持企业微信应用消息的收发"
+author: "AstrBot Team"
+email: "contact@astrbot.app"
+homepage: "https://astrbot.app"
+license: "MIT"
+
+# 插件类型
+type: "platform-adapter"
+
+# 平台适配器信息
+platform:
+  name: "wecom"
+  display_name: "企业微信"
+  description: "企业微信平台适配器"
+
+# 依赖项
+dependencies:
+  - name: "aiohttp"
+    version: ">=3.8.0"
+
+# 配置项
+config:
+  - key: "corp_id"
+    type: "string"
+    label: "企业ID"
+    required: true
+    description: "企业微信管理后台获取的企业ID"
+  - key: "app_secret"
+    type: "string"
+    label: "应用密钥"
+    required: true
+    description: "企业微信应用的Secret"
+  - key: "agent_id"
+    type: "string"
+    label: "应用ID"
+    required: true
+    description: "企业微信应用的AgentID"
