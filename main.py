@@ -4,8 +4,20 @@
 企业微信平台适配器插件主文件
 """
 
+from astrbot.core import Plugin
+
 # 插件主文件，用于标识插件入口
 # AstrBot会自动加载plugins目录下的插件
 # 平台适配器通过 @register_platform_adapter 装饰器自动注册
 
-__all__ = []
+class Plugin(Plugin):
+    """
+    企业微信平台适配器插件
+    """
+    def __init__(self):
+        super().__init__(name="wecom-platform", description="企业微信平台适配器")
+
+# 导出插件实例
+plugin = Plugin()
+
+__all__ = ['plugin']
